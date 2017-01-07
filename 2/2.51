@@ -1,0 +1,15 @@
+#lang planet neil/sicp
+(paint einstein)
+(define (below1 x y)
+  (rotate90 (beside (rotate270 x) (rotate270 y))))
+(define (below2 x y)
+  (let ((split-point (make-vect 0 .5)))
+    (let ((top ((transform-painter split-point
+                                  (make-vect 1 .5)
+                                  (make-vect 0 1)) y))
+          (bottom ((transform-painter (make-vect 0 0)
+                                     (make-vect 1 0)
+                                     (make-vect 0 .5)) x)))
+      (lambda (frame) (top frame) (bottom frame)))))
+(paint (below1 einstein einstein))
+(paint (below2 einstein einstein))

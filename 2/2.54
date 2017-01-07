@@ -1,0 +1,13 @@
+#lang planet neil/sicp
+(define (equal? a b)
+  (cond ((and (null? a) (null? b)) #t)
+        ((not (pair? a))
+         (if (pair? b) #f (eq? a b)))
+        (else (if (pair? b)
+                  (and (equal? (car a) (car b))
+                       (equal? (cdr a) (cdr b)))
+                  #f))))
+(define a '(this is a list))
+(define b '(this (is a) list))
+(equal? a b)
+(equal? a a)
