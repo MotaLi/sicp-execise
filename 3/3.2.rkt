@@ -1,0 +1,17 @@
+#lang planet neil/sicp
+(define (make-monitored f)
+  (let ((r 0))
+    (lambda (m)
+       (cond ((eq? m 'how-many-calls?) r)
+             ((eq? m 'reset-count) (begin (set! r 0) r))
+             (else (begin (set! r (+ r 1)) (f m)))))))
+
+(define s (make-monitored sqrt))
+(s 100)
+(s 'how-many-calls?)
+(s 100)
+(s 100)
+(s 'how-many-calls?)
+(s 'reset-count)
+(s 100)
+(s 'how-many-calls?)

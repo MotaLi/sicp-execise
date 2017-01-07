@@ -1,0 +1,22 @@
+#lang planet neil/sicp
+(define (cube x) (* x x x))
+(define (sum term a next b)
+  (if (> a b)
+      0
+      (+ (term a)
+         (sum term (next a) next b))))
+
+(define (fun f a b n)
+  (define (term k)
+    (let ([h (/ (- b a) n)])
+      (* (f (+ a (* k h)))
+       (cond ((or (= k 0) (= k n)) 1)
+             ((= (remainder k 2) 0) 2)
+             (else 4))))
+    )
+  (define (next x) (+ x 1))
+  (let ([h (/ (- b a) n)])
+    (/ (* h (sum term 0 next n)) 3)))
+(fun cube 0 1 100)
+(fun cube 0 1 1000)
+(fun cube 0 6 10000)

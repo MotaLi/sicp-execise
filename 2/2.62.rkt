@@ -1,0 +1,16 @@
+#lang planet neil/sicp
+(define (union-set s1 s2)
+  (cond ((null? s1) s2)
+        ((null? s2) s1)
+        (else (let ((x1 (car s1)) (x2 (car s2)))
+                (cond ((= x1 x2)
+                       (cons x1 (union-set (cdr s1) (cdr s2))))
+                      ((> x1 x2)
+                       (cons x2 (union-set s1 (cdr s2))))
+                      ((< x1 x2)
+                       (cons x1 (union-set (cdr s1) s2))))))))
+
+(define s1 (list 2 9 15))
+(define s2 (list 1 4 9 13 16))
+(define s3 (union-set s1 s2))
+(display s3)
